@@ -1,0 +1,19 @@
+runtime: nodejs18
+env: standard
+instance_class: F1
+handlers:
+  # Serve all static files with url ending with a file extension
+  - url: /(.*\..+)$
+    static_files: build/\1
+    upload: build/(.*\..+)$
+  # Catch all handler to index.html
+  - url: /.*
+    static_files: build/index.html
+    upload: build/index.html
+env_variables:
+  PORT: 8080
+automatic_scaling:
+  min_idle_instances: 1
+  max_idle_instances: 2
+  target_cpu_utilization: 0.8
+network: {}
